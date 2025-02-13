@@ -16,6 +16,7 @@ jobs:
         - shell: bash
           run: |
             brew install pv
+            brew install pigz
             
         - shell: bash
           run: |
