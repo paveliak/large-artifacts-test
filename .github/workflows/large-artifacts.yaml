@@ -25,7 +25,7 @@ jobs:
 
         - shell: bash
           run: |
-            tar cf - "${{ inputs.path }}" | pigz -9 -p 32 > meow
+            tar cf - "artifact-path/random_bytes" | pigz -9 -p 32 > meow
       
         - uses: paveliak/zupload-artifact@main
           name: Upload with concurrency of 1
