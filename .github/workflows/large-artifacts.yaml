@@ -15,6 +15,10 @@ jobs:
     steps:
         - shell: bash
           run: |
+            brew install pv
+            
+        - shell: bash
+          run: |
             mkdir artifact-path
             head -c 1073743872 /dev/urandom > artifact-path/random_bytes
         
