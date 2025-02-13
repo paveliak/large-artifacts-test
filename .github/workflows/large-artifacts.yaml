@@ -10,31 +10,28 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
+        os: [macos-latest, macos-13]
     name: artifact upload on ${{ matrix.os }}
     steps:
         - shell: bash
           run: |
             mkdir artifact-path
-            head -c 357914624 /dev/urandom > artifact-path/random_bytes_1
-            head -c 357914624 /dev/urandom > artifact-path/random_bytes_2
-            head -c 357914624 /dev/urandom > artifact-path/random_bytes_3
-        # - uses: actions/upload-artifact@v4
-        #   name: Upload with concurrency of 1
-        #   with:
-        #     name: my-artifact-${{ matrix.os }}-concurrency_1
-        #     path: artifact-path/*
-        #     retention-days: 1
-        #   env:
-        #     ACTIONS_ARTIFACT_UPLOAD_CONCURRENCY: 1
-        - uses: actions/upload-artifact@v4
+            head -c 1073743872 /dev/urandom > artifact-path/random_bytes
+        
+        - uses: paveliak/zupload-artifact@main
+          name: Upload with concurrency of 1
+          with:
+             name: my-artifact-${{ matrix.os }}-concurrency_1
+             path: artifact-path/random_bytes
+             concurrency: 1 
+
+        - uses: paveliak/zupload-artifact@main
           name: Upload with concurrency of 5
           with:
             name: my-artifact-${{ matrix.os }}-concurrency_5
-            path: artifact-path/*
-            retention-days: 1
-          env:
-            ACTIONS_ARTIFACT_UPLOAD_CONCURRENCY: 5
+            path: artifact-path/random_bytes
+            concurrency: 5 
+
         # - uses: actions/upload-artifact@v4
         #   name: Upload with default concurrency
         #   with:
