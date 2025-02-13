@@ -22,10 +22,6 @@ jobs:
           run: |
             mkdir artifact-path
             head -c 1073743872 /dev/urandom > artifact-path/random_bytes
-
-        - shell: bash
-          run: |
-            tar cf - "artifact-path/random_bytes" | pigz -9 -p 32 > meow
       
         - uses: paveliak/zupload-artifact@main
           name: Upload with concurrency of 1
