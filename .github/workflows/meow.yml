@@ -1,0 +1,10 @@
+name: meow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "test"
